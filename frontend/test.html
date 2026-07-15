@@ -1,0 +1,31 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><title>API测试</title></head><body>
+<h2>API 连通性测试</h2>
+<div id="result">测试中...</div>
+<script>
+var API='http://localhost:5001/api';
+async function test(){
+  var out=document.getElementById('result');
+  out.innerHTML='测试 landmarks...';
+  try{
+    var r=await fetch(API+'/landmarks');
+    var d=await r.json();
+    out.innerHTML+='<br>✅ landmarks: '+d.landmarks.length+'个商圈';
+  }catch(e){out.innerHTML+='<br>❌ landmarks失败: '+e.message}
+
+  out.innerHTML+='<br>测试 shops...';
+  try{
+    var r=await fetch(API+'/shops?limit=3');
+    var d=await r.json();
+    out.innerHTML+='<br>✅ shops: '+d.count+'个门店';
+  }catch(e){out.innerHTML+='<br>❌ shops失败: '+e.message}
+
+  out.innerHTML+='<br>测试 tags...';
+  try{
+    var r=await fetch(API+'/tags');var d=await r.json();
+    out.innerHTML+='<br>✅ tags: '+d.tags.length+'个标签';
+  }catch(e){out.innerHTML+='<br>❌ tags失败: '+e.message}
+
+  out.innerHTML+='<br><br><b>测试完成!</b>';
+}
+test();
+</script></body></html>

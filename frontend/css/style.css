@@ -1,0 +1,629 @@
+/* ============================================================
+   厦门美食漫游导航系统 - 样式表
+   采用现代简洁风格，移动端友好
+   ============================================================ */
+
+/* ---------- CSS 变量（配色方案） ---------- */
+:root {
+    --primary: #FF6B6B;
+    --primary-dark: #EE5A24;
+    --primary-light: #FFE0E0;
+    --bg: #FAFAFA;
+    --surface: #FFFFFF;
+    --text: #2D3436;
+    --text-secondary: #636E72;
+    --border: #E0E0E0;
+    --shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.12);
+    --radius: 12px;
+    --radius-sm: 8px;
+    --transition: 0.2s ease;
+    --header-h: 56px;
+    --sidebar-w: 400px;
+}
+
+/* ---------- 全局重置 ---------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* ---------- 顶部标题栏 ---------- */
+#app-header {
+    height: var(--header-h);
+    background: linear-gradient(135deg, #FF6B6B, #EE5A24);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 100;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(238, 90, 36, 0.3);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header-left .logo-icon {
+    font-size: 28px;
+}
+
+.header-left h1 {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.header-right {
+    display: flex;
+    gap: 12px;
+}
+
+.badge {
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(4px);
+}
+
+.status-checking {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.status-online {
+    background: rgba(0, 200, 100, 0.3);
+}
+
+.status-offline {
+    background: rgba(255, 80, 80, 0.4);
+}
+
+/* ---------- 主内容区布局 ---------- */
+#app-main {
+    display: flex;
+    height: calc(100vh - var(--header-h));
+    position: relative;
+}
+
+/* ---------- 地图容器 ---------- */
+#map-container {
+    flex: 1;
+    height: 100%;
+    position: relative;
+}
+
+/* ---------- 侧边栏 ---------- */
+#sidebar {
+    width: var(--sidebar-w);
+    height: 100%;
+    background: var(--surface);
+    border-left: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    z-index: 10;
+    box-shadow: var(--shadow);
+}
+
+.sidebar-section {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.section-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.small-badge {
+    font-size: 11px;
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+/* ---------- 搜索框 ---------- */
+.search-box {
+    display: flex;
+    gap: 8px;
+}
+
+.search-box input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 2px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    outline: none;
+    transition: border-color var(--transition);
+}
+
+.search-box input:focus {
+    border-color: var(--primary);
+}
+
+.search-box button {
+    padding: 10px 18px;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background var(--transition);
+}
+
+.search-box button:hover {
+    background: var(--primary-dark);
+}
+
+/* ---------- 片区筛选按钮 ---------- */
+.filter-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.filter-chip {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+    border: 2px solid var(--border);
+    background: #fff;
+    transition: all var(--transition);
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.filter-chip .chip-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.filter-chip:hover {
+    border-color: var(--primary);
+    transform: translateY(-1px);
+}
+
+.filter-chip.active {
+    background: var(--primary-light);
+    border-color: var(--primary);
+    color: var(--primary-dark);
+    font-weight: 600;
+}
+
+/* ---------- POI 列表 ---------- */
+.poi-list {
+    max-height: 280px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.list-empty {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 24px 0;
+    font-size: 14px;
+}
+
+.poi-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition);
+    border: 1px solid transparent;
+}
+
+.poi-item:hover {
+    background: #FFF5F5;
+    border-color: var(--primary-light);
+}
+
+.poi-item.selected {
+    background: var(--primary-light);
+    border-color: var(--primary);
+}
+
+.poi-item .poi-color-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.poi-item .poi-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.poi-item .poi-name {
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.poi-item .poi-meta {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+.poi-item .poi-action {
+    padding: 4px 10px;
+    border-radius: 14px;
+    font-size: 12px;
+    border: 1px solid var(--primary);
+    background: #fff;
+    color: var(--primary);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all var(--transition);
+}
+
+.poi-item .poi-action:hover {
+    background: var(--primary);
+    color: #fff;
+}
+
+.poi-item .poi-action.in-route {
+    background: var(--primary);
+    color: #fff;
+}
+
+/* ---------- 路线区域 ---------- */
+.route-section {
+    background: #FFFBF5;
+}
+
+.route-stops {
+    min-height: 60px;
+    max-height: 180px;
+    overflow-y: auto;
+}
+
+.route-hint {
+    color: var(--text-secondary);
+    font-size: 13px;
+    text-align: center;
+    padding: 16px 0;
+}
+
+.route-stop-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    background: #FFF;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    font-size: 13px;
+    border: 1px solid var(--border);
+}
+
+.route-stop-item .stop-index {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.route-stop-item .stop-name {
+    flex: 1;
+    font-weight: 500;
+}
+
+.route-stop-item .stop-remove {
+    cursor: pointer;
+    color: #999;
+    font-size: 16px;
+    padding: 0 4px;
+}
+
+.route-stop-item .stop-remove:hover {
+    color: var(--primary);
+}
+
+.route-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all var(--transition);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: #fff;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+}
+
+.btn-secondary {
+    background: #F0F0F0;
+    color: var(--text-secondary);
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: #E0E0E0;
+}
+
+/* ---------- 路线信息卡片 ---------- */
+.route-info {
+    margin-top: 12px;
+    padding: 14px;
+    background: linear-gradient(135deg, #FFF5F5, #FFF0E0);
+    border-radius: var(--radius-sm);
+    border: 1px solid #FFD4C4;
+}
+
+.route-info .ri-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-bottom: 6px;
+    color: var(--text-secondary);
+}
+
+.route-info .ri-row strong {
+    color: var(--text);
+}
+
+.route-info .ri-distance {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--primary-dark);
+    text-align: center;
+    margin: 8px 0;
+}
+
+/* ---------- 自定义 InfoWindow ---------- */
+.custom-info-window {
+    min-width: 240px;
+    padding: 4px;
+}
+
+.custom-info-window .iw-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.iw-category-tag {
+    font-size: 11px;
+    padding: 2px 8px;
+    background: #FFE0E0;
+    color: #EE5A24;
+    border-radius: 10px;
+}
+
+.iw-rating {
+    font-size: 12px;
+    color: #F39C12;
+}
+
+.iw-name {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #2D3436;
+}
+
+.iw-address,
+.iw-area {
+    font-size: 12px;
+    color: #636E72;
+    margin-bottom: 4px;
+}
+
+.iw-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.iw-btn {
+    flex: 1;
+    padding: 8px 0;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    border: none;
+    font-weight: 500;
+    transition: all var(--transition);
+}
+
+.iw-btn-add {
+    background: var(--primary);
+    color: #fff;
+}
+
+.iw-btn-add:hover {
+    background: var(--primary-dark);
+}
+
+.iw-btn-nav {
+    background: #F0F0F0;
+    color: var(--text);
+}
+
+.iw-btn-nav:hover {
+    background: #E0E0E0;
+}
+
+/* ---------- 地图上的自定义 Marker ---------- */
+.custom-marker {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: transform 0.2s;
+    position: relative;
+}
+
+.custom-marker:hover {
+    transform: scale(1.3);
+    z-index: 999;
+}
+
+.custom-marker.route-highlight {
+    width: 34px;
+    height: 34px;
+    border-width: 4px;
+    box-shadow: 0 0 0 6px rgba(255, 107, 107, 0.3), 0 4px 12px rgba(0, 0, 0, 0.3);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%,
+    100% {
+        box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.3), 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(255, 107, 107, 0.1), 0 4px 16px rgba(0, 0, 0, 0.25);
+    }
+}
+
+/* ---------- 百度地图 UI 调整 ---------- */
+.BMap_cpyCtrl,
+.BMap_scaleCtrl {
+    opacity: 0.8 !important;
+}
+
+.anchorBL {
+    opacity: 0.6 !important;
+}
+
+/* ---------- 响应式 ---------- */
+@media (max-width: 768px) {
+    #sidebar {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 100%;
+        max-width: 360px;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+    }
+
+    #sidebar.open {
+        transform: translateX(0);
+    }
+
+    #app-header h1 {
+        font-size: 16px;
+    }
+}
+
+/* ---------- 滚动条美化 ---------- */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #D0D0D0;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #AAA;
+}
+
+/* ---------- 路线图例 ---------- */
+.route-legend {
+    position: absolute;
+    bottom: 30px;
+    left: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    box-shadow: var(--shadow);
+    font-size: 12px;
+    z-index: 10;
+}
+
+.route-legend .legend-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.legend-line {
+    width: 30px;
+    height: 3px;
+    border-radius: 2px;
+}

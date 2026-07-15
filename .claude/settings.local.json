@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 app.py)",
+      "Bash(kill -9 28863 28865)",
+      "Bash(python3 -m http.server 8080)",
+      "Bash(curl -s http://localhost:5001/api/health)",
+      "Bash(curl -s -o /dev/null -w \"Frontend HTTP status: %{http_code}\" http://localhost:8080/)",
+      "Bash(open *)",
+      "Bash(curl -s \"https://api.map.baidu.com/place/v2/search?ak=nQZTW6s2Y3yUnmG4FpEEwEKz1FiHoA0A&query=小吃&region=厦门&output=json&scope=2&page_size=5&page_num=0\")",
+      "Bash(python3 -m json.tool)",
+      "Bash(xargs kill -9)",
+      "Bash(curl -s http://localhost:5001/api/pois)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(f'POI总数: {d[\\\\\"count\\\\\"]}'\\); areas={}; [areas.update\\({p.get\\('food_area','?'\\): areas.get\\(p.get\\('food_area','?'\\),0\\)+1}\\) for p in d['pois']]; [print\\(f'  {k}: {v}个'\\) for k,v in sorted\\(areas.items\\(\\)\\)]; print\\(f'字段: {list\\(d[\\\\\"pois\\\\\"][0].keys\\(\\)\\)}'\\)\")",
+      "Bash(curl -s \"https://api.map.baidu.com/place/v2/search?ak=9CH15xGDSzwRua03bNDC4pWgBgjj2PF7&query=小吃&region=厦门&output=json&scope=2&page_size=5&page_num=0\")",
+      "Bash(curl -s -o /dev/null -w \"Frontend: %{http_code}\" http://localhost:8080/)",
+      "Bash(curl -s http://localhost:5001/api/landmarks)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(f'landmarks数量: {len\\(d.get\\(\\\\\"landmarks\\\\\",[]\\)\\)}'\\); [print\\(f'  {l[\\\\\"id\\\\\"]}: {l[\\\\\"name\\\\\"]} \\({l[\\\\\"lng\\\\\"]},{l[\\\\\"lat\\\\\"]}\\)'\\) for l in d.get\\('landmarks',[]\\)]\")",
+      "Bash(curl -s http://localhost:5001/api/shops)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(f'shops数量: {d.get\\(\\\\\"count\\\\\",0\\)}'\\); print\\(f'字段: {list\\(d[\\\\\"shops\\\\\"][0].keys\\(\\)\\) if d.get\\(\\\\\"shops\\\\\"\\) else \\\\\"无\\\\\"}'\\)\")",
+      "Bash(curl -s http://localhost:5001/api/tags)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(f'tags数量: {len\\(d.get\\(\\\\\"tags\\\\\",[]\\)\\)}'\\); [print\\(f'  {t[\\\\\"name\\\\\"]}: {t[\\\\\"count\\\\\"]}'\\) for t in d.get\\('tags',[]\\)]\")",
+      "Bash(curl -s http://localhost:5001/api/history)",
+      "Bash(curl -s -X POST http://localhost:5001/api/save)",
+      "Bash(curl -s \"http://localhost:5001/api/ranking?mode=0&k=5\")",
+      "Bash(curl -s \"http://localhost:5001/api/explore?landmark=1&time=15\")",
+      "Bash(curl -s -X POST http://localhost:5001/api/smart-route -H 'Content-Type: application/json' -d '{\"categories\":[\"小吃\",\"中餐厅\"],\"start_landmark\":\"1\"}')"
+    ]
+  }
+}

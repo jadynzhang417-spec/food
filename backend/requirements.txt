@@ -1,0 +1,6 @@
+# 厦门美食漫游导航系统 - 后端依赖
+# 安装命令: pip install -r requirements.txt
+
+Flask==3.1.0
+flask-cors==5.0.1
+requests==2.32.3
