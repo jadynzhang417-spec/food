@@ -24,7 +24,11 @@
       "Bash(curl -s -X POST http://localhost:5001/api/save)",
       "Bash(curl -s \"http://localhost:5001/api/ranking?mode=0&k=5\")",
       "Bash(curl -s \"http://localhost:5001/api/explore?landmark=1&time=15\")",
-      "Bash(curl -s -X POST http://localhost:5001/api/smart-route -H 'Content-Type: application/json' -d '{\"categories\":[\"小吃\",\"中餐厅\"],\"start_landmark\":\"1\"}')"
+      "Bash(curl -s -X POST http://localhost:5001/api/smart-route -H 'Content-Type: application/json' -d '{\"categories\":[\"小吃\",\"中餐厅\"],\"start_landmark\":\"1\"}')",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8080/)"
     ]
+  },
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": true
   }
 }

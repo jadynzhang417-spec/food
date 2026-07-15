@@ -166,8 +166,9 @@ for _d in _FOOD_DISTRICTS_GCJ02:
 # ============================================================
 # 数据存储路径
 # ============================================================
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DATA_DIR = os.path.join(BASE_DIR, "data")
+_BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.dirname(_BASE_DIR)  # src/ 的上级目录即项目根
+DATA_DIR = os.path.join(PROJECT_ROOT, "data")
 POIS_JSON_PATH = os.path.join(DATA_DIR, "pois.json")
 
 # ============================================================

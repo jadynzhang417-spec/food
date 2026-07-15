@@ -16,6 +16,13 @@ import math
 import heapq
 import json
 import os
+import sys
+
+# 确保能 import 项目根目录下的 config
+_src_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if _src_dir not in sys.path:
+    sys.path.insert(0, _src_dir)
+
 from config import POIS_JSON_PATH
 
 

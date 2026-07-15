@@ -20,12 +20,14 @@ import os
 import sys
 import json
 
-# 将当前目录加入模块搜索路径
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+# 将 src/ 及父目录加入模块搜索路径，确保跨子目录 import 正常
+_src_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, _src_dir)
+sys.path.insert(0, os.path.dirname(_src_dir))  # 项目根
 
 from config import FLASK_HOST, FLASK_PORT, FLASK_DEBUG, FOOD_DISTRICTS
-from data_fetcher import fetch_all_pois, load_pois_from_json
-from route_planner import plan_route, plan_multi_stop_route, load_pois
+from services.data_fetcher import fetch_all_pois, load_pois_from_json
+from algorithm.route_planner import plan_route, plan_multi_stop_route, load_pois
 
 # ============================================================
 # Flask 应用初始化
@@ -325,8 +327,8 @@ def get_tags():
 # ============================================================
 import threading
 _fav_lock = threading.Lock()
-_FAV_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "favorites.json")
-_HISTORY_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "history.json")
+_FAV_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "favorites.json")
+_HISTORY_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "history.json")
 
 
 def _load_favorites():
